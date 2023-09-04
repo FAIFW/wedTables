@@ -1,7 +1,7 @@
 import { Provider } from 'react-redux';
 import { useMemo, useCallback } from 'react';
 import { ToastContainer } from 'react-toastify';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { io } from 'socket.io-client';
 import store from '../slices/index.js';
 import FormSubmit from './FormSubmit.jsx';
@@ -16,8 +16,8 @@ import Programm from './Programm.jsx';
 import DressCode from './DressCode.jsx';
 import Flowers from './Flowers.jsx';
 import Footer from './Footer.jsx';
-import { Table } from 'react-bootstrap';
-import Tables from './Tables.jsx';
+import Tables from './Tables';
+
 
 const App = () => {
   const isMobile = window.screen.width <= 768;
@@ -48,7 +48,6 @@ const App = () => {
             <Programm />
             <DressCode />
             <Flowers />
-
             <Routes>
               <Route path="/" element={<FormSubmit isMobile={isMobile} />} />
               <Route path="/list" element={<List isMobile={isMobile} />} />

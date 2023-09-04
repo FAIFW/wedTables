@@ -345,9 +345,9 @@ function showUserInfoForm() {
   const manDiv = document.createElement('div');
   manDiv.className = 'sideOption';
   const manImage = document.createElement('img');
-  manImage.src = 'man.png';
+  manImage.src = './img/man.png';
   const manCheck = document.createElement('img');
-  manCheck.src = 'check.png';
+  manCheck.src = './img/check.png';
   manCheck.className = 'check';
   manCheck.style.display = 'none';
   
@@ -362,9 +362,9 @@ function showUserInfoForm() {
   const womanDiv = document.createElement('div');
   womanDiv.className = 'sideOption';
   const womanImage = document.createElement('img');
-  womanImage.src = 'woman.png';
+  womanImage.src = './img/woman.png';
   const womanCheck = document.createElement('img');
-  womanCheck.src = 'check.png';
+  womanCheck.src = './img/check.png';
   womanCheck.className = 'check';
   womanCheck.style.display = 'none';
   
@@ -419,13 +419,13 @@ function showUserInfoForm() {
   
       guestOptions.insertBefore(guestInput, addGuestButton);
   
-      guestInput.addEventListener('input', () => {
-        // При вводе имени гостя, добавляем его в массив гостей
-        const guestName = guestInput.value;
-        if (guestName) {
-          guests.push(guestName);
-        }
-      });
+      // guestInput.addEventListener('input', () => {
+      //   // При вводе имени гостя, добавляем его в массив гостей
+      //   const guestName = guestInput.value;
+      //   if (guestName) {
+      //     guests.push(guestName);
+      //   }
+      // });
     }
   }  
   
@@ -496,7 +496,7 @@ function showConfirmationWindow(name, gender, age, side, guests) {
   const confirmationWindow = document.createElement('div');
   confirmationWindow.className = 'custom-alert'; // Стили кастомного окна заданы в CSS
   const img_done = document.createElement('img');
-  img_done.src = './img_done.png';
+  img_done.src = './img/img_done.png';
   img_done.className = "img_done";
   confirmationWindow.appendChild(img_done);
   const confirmationText = document.createElement('p');
