@@ -1,0 +1,360 @@
+.stage-header>h1 {
+    margin-bottom: 20px;
+    color: #B93B3B;
+    font-family: Playfair Display;
+    font-size: 30px;
+  }
+  
+  .stage-container {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 100px;
+  }
+  
+  .stage-indicators {
+    margin-bottom: 11px;
+    display: flex;
+    gap: 80px;
+    justify-content: center;
+  }
+  
+  .stage-indicator {
+    display: block;
+    border-radius: 50%;
+    text-align: center;
+    padding: 12px 18px;
+    border: 1px solid black;
+    position: relative;
+  }
+  
+  .stage-indicator.active {
+    border: 1px solid #B93B3B;
+  }
+  
+  .stage-indicator[data-stage="1"]::after,
+  .stage-indicator[data-stage="2"]::after {
+    content: '';
+    position: absolute;
+    height: 1px;
+    width: 40px; 
+    background-color: black;
+    top: 50%;
+    left: 150%; 
+    transform: translateY(-50%);
+  }
+  
+  .stage-indicator.active[data-stage="1"]::after,
+  .stage-indicator.active[data-stage="2"]::after {
+    background-color: #B93B3B;
+  }
+  
+  
+  .wedding_img {
+    background: url(../img/wedding_img1.png) no-repeat;
+    width: 100%;
+    margin-bottom: 48px;
+    height: 200px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-position: center;
+  }
+  
+  .table-grid {
+    text-align: center;
+  }
+  
+  .back-button {
+    position: relative;
+    top: 45px;
+    width: 160px;
+    height: 35px;
+    border: none;
+    border-radius: 20px;
+    background: gray;
+    box-shadow: 0px 4px 4px 0px rgba(209, 75, 75, 0.25);
+    color: white;
+  }
+  
+  .tables {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 68px;
+    justify-content: center;
+  }
+  
+  .tables:nth-child(1) {
+    margin-bottom: 48px;
+  }
+  
+  .table {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background: #FDD;
+    box-shadow: 4px 6px 21px 0px rgba(0, 0, 0, 0.10), -4px -6px 13px 0px rgba(0, 0, 0, 0.10);
+    margin: 10px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    width: 115px;
+    text-align: center;
+    height: 180px;
+    transition: background 0.3s ease; 
+  }
+  
+  .table:hover {
+    background: #FDD;
+  }
+  
+  .seats {
+    border-radius: 6px;
+    background: #FFF;
+    box-shadow: 4px 6px 21px 0px rgba(0, 0, 0, 0.10), -4px -6px 13px 0px rgba(0, 0, 0, 0.10);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .seat {
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    text-align: center;
+    border: 2px solid black;
+    border-radius: 50%;
+    margin: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: bold;
+    transition: background-color 0.3s;
+  }
+  
+  .seat>img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .modal-content {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    height: 300px;
+    width: 300px;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    padding: 20px;
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .close-modal {
+    font-size: 30px;
+  }
+  
+  .modal-body {
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .modal-body>img {
+    width: 128px;
+    height: 128px;
+    border-radius: 50%;
+  }
+  
+  .seat-row {
+    display: flex;
+  }
+  
+  .center-div {
+    border: 2px solid black;
+    height: 40px;
+  }
+  
+  .occupied {
+    background-color: #ff6347;
+    cursor: default;
+  }
+  
+  .available {
+    background-color: #98fb98;
+  }
+  
+  .seat:hover {
+    background-color: #ffa500;
+  }
+  
+  .seats-content {
+    display: flex;
+    gap: 100px;
+  }
+  
+  .form-container {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    align-items: center;
+  }
+  
+  .form-container>button {
+    width: 160px;
+    height: 35px;
+    border: none;
+    border-radius: 20px;
+    background: #B93B3B;
+    box-shadow: 0px 4px 4px 0px rgba(209, 75, 75, 0.25);
+    color: white;
+  }
+  
+  #photo-preview {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 2px solid #B93B3B;
+  }
+  
+  .photoContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
+  
+  .file-input {
+    position: absolute;
+    font-size: 100px;
+    opacity: 0;
+    width: 192px;
+    height: 190px;
+    top: 140px;
+    cursor: pointer;
+  }
+  
+  .file-input::-webkit-file-upload-button {
+    visibility: hidden;
+  }
+  .file-input::-moz-file-upload-button {
+    visibility: hidden;
+  }
+  
+  .nameContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .nameContainer>input {
+    border-radius: 20px;
+    border: 1px solid #B93B3B;
+    width: 300px;
+    height: 35px;
+    outline: none;
+    text-align: center;
+  }
+  
+  .genderDiv {
+    display: flex;
+    gap: 109px;
+  }
+  
+  
+  .age-counter {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+  }
+  
+  .age-counter>input {
+    border: none;
+    text-align: center;
+    outline: none;
+  }
+  
+  .ageContainer, .sideContainer, .sideOption, .guestContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+  }
+  
+  .sideOptions {
+    display: flex;
+    gap: 60px;
+  }
+  
+  .sideOption>img:nth-child(1) {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+  }
+  
+  .check {
+    position: absolute;
+    top: 30%;
+    left: 30%;
+  }
+  
+  .guestOptions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
+  
+  .guestOptions>input {
+    width: 300px;
+    height: 35px;
+    border-radius: 20px;
+    border: 1px solid #B93B3B;
+    padding-left: 30px;
+    color: #6F6F6F;
+    outline: none;
+  }
+  
+  .guestOptions>button {
+    width: 330px;
+    height: 35px;
+    border-radius: 20px;
+    border: 1px solid #6E6E6E;
+    padding-left: 30px;
+    color: #6F6F6F;
+    outline: none;
+  }
+  
+  .custom-alert {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    top: 100px;
+    gap: 22px;
+  }
+  
+  .custom-alert>button {
+    width: 160px;
+    height: 35px;
+    border: none;
+    border-radius: 20px;
+    background: #B93B3B;
+    box-shadow: 0px 4px 4px 0px rgba(209, 75, 75, 0.25);
+    color: white;
+  }
+  
+  @media(max-width: 420px) {
+    .table {
+    width: 80px;
+    height: 150px;
+    }
+  }

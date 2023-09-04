@@ -1,4 +1,3 @@
-/* eslint-disable jsx-a11y/control-has-associated-label */
 import { useEffect, useContext, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Spinner, Badge, Table } from 'react-bootstrap';
