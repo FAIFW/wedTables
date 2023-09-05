@@ -15,8 +15,6 @@ const Timer = ({ date }) => {
       Math.floor((diff / 3600) % 24),
       Math.floor((diff / 60) % 60),
       Math.floor(diff % 60),
-
-      console.log(diffS),
     ]);
   }, [tick, finishTime]);
 
