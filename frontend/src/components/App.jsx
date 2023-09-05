@@ -16,7 +16,7 @@ import Programm from './Programm.jsx';
 import DressCode from './DressCode.jsx';
 import Flowers from './Flowers.jsx';
 import Footer from './Footer.jsx';
-import Tables from './Tables';
+import { FileX } from 'react-bootstrap-icons';
 
 
 const App = () => {
@@ -53,7 +53,7 @@ const App = () => {
               <Route path="/list" element={<List isMobile={isMobile} />} />
             </Routes>
           </main>
-          <Tables />
+          <a href="/tables.html" style={{display: 'flex', justifyContent: 'center'}}>Перейти к столам</a>
           <Footer />
         </BrowserRouter>
       </ApiContext.Provider>
