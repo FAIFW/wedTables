@@ -419,13 +419,13 @@ function showUserInfoForm() {
   
       guestOptions.insertBefore(guestInput, addGuestButton);
   
-      // guestInput.addEventListener('input', () => {
-      //   // При вводе имени гостя, добавляем его в массив гостей
-      //   const guestName = guestInput.value;
-      //   if (guestName) {
-      //     guests.push(guestName);
-      //   }
-      // });
+      guestInput.addEventListener('input', () => {
+        let guests = [];
+        const guestName = guestInput.value;
+        if (guestName) {
+          guests.push(guestName);
+        }
+      });
     }
   }  
   
@@ -492,28 +492,33 @@ function showUserInfoForm() {
   updateStageDisplay();
 }
 
+let confirmationDisplayed = false; // Add this variable
+
 function showConfirmationWindow(name, gender, age, side, guests) {
-  const confirmationWindow = document.createElement('div');
-  confirmationWindow.className = 'custom-alert'; // Стили кастомного окна заданы в CSS
-  const img_done = document.createElement('img');
-  img_done.src = './img/img_done.png';
-  img_done.className = "img_done";
-  confirmationWindow.appendChild(img_done);
-  const confirmationText = document.createElement('p');
-  confirmationText.textContent = `Вы выбрали стол ${selectedTable + 1}, сиденье ${selectedSeat + 1}. Имя: ${name}, Пол: ${gender}, Возраст: ${age}, Сторона: ${side}, Гости: ${guests.join(', ')}`;
-  confirmationWindow.appendChild(confirmationText);
-  
-  const returnButton = document.createElement('button');
-  returnButton.textContent = 'На главную';
-  returnButton.addEventListener('click', () => {
-    confirmationWindow.style.display = 'none';
-    showTables();
-  });
-  confirmationWindow.appendChild(returnButton);
-  const rootDiv = document.getElementById('root');
-  const stageContainer = document.querySelector('.stage-container');
-  rootDiv.insertBefore(confirmationWindow, stageContainer.nextSibling);
-  confirmationWindow.style.display = 'flex';
+  if (!confirmationDisplayed) { // Check if the confirmation window is not already displayed
+    confirmationDisplayed = true; // Set the flag to true
+    const confirmationWindow = document.createElement('div');
+    confirmationWindow.className = 'custom-alert'; // Стили кастомного окна заданы в CSS
+    const img_done = document.createElement('img');
+    img_done.src = './img/img_done.png';
+    img_done.className = "img_done";
+    confirmationWindow.appendChild(img_done);
+    const confirmationText = document.createElement('p');
+    confirmationText.textContent = `Вы выбрали стол ${selectedTable + 1}, сиденье ${selectedSeat + 1}. Имя: ${name}, Пол: ${gender}, Возраст: ${age}, Сторона: ${side}, Гости: ${guests.join(', ')}`;
+    confirmationWindow.appendChild(confirmationText);
+
+    const returnButton = document.createElement('button');
+    returnButton.textContent = 'На главную';
+    returnButton.addEventListener('click', () => {
+      confirmationWindow.style.display = 'none';
+      showTables();
+    });
+    confirmationWindow.appendChild(returnButton);
+    const rootDiv = document.getElementById('root');
+    const stageContainer = document.querySelector('.stage-container');
+    rootDiv.insertBefore(confirmationWindow, stageContainer.nextSibling);
+    confirmationWindow.style.display = 'flex';
+  }
 }
 
 function submitUserInfo(name, gender, age, photoURL, side, guests) {
