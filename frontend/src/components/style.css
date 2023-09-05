@@ -10,7 +10,7 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-bottom: 400px;
+    margin-bottom: 200px;
   }
   
   .stage-indicators {
@@ -338,8 +338,8 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    position: absolute;
-    top: 9400px;
+    position: relative;
+    bottom: 150px;
     gap: 22px;
   }
   

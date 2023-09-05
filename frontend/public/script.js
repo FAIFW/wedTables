@@ -510,8 +510,9 @@ function showConfirmationWindow(name, gender, age, side, guests) {
     showTables();
   });
   confirmationWindow.appendChild(returnButton);
-  
-  document.body.appendChild(confirmationWindow);
+  const rootDiv = document.getElementById('root');
+  const stageContainer = document.querySelector('.stage-container');
+  rootDiv.insertBefore(confirmationWindow, stageContainer.nextSibling);
   confirmationWindow.style.display = 'flex';
 }
 
