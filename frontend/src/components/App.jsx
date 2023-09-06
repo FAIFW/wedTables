@@ -14,6 +14,7 @@ import Second from './Second.jsx';
 import Programm from './Programm.jsx';
 import DressCode from './DressCode.jsx';
 import Flowers from './Flowers.jsx';
+import RedBtn from './RedBtn.jsx';
 import Footer from './Footer.jsx';
 import { FileX } from 'react-bootstrap-icons';
 
@@ -58,27 +59,14 @@ const App = () => {
               <Route path="/" element={<FormSubmit isMobile={isMobile} />} />
               <Route path="/list" element={<List isMobile={isMobile} />} />
             </Routes>
+
+            <RedBtn
+              className="redBtn toTables"
+              href="/portfolio/wedding/tables.html"
+              img={rings}
+              text="Перейти к&nbsp;рассадке гостей и&nbsp;выбрать место"
+            />
           </main>
-          <div style={{ display: 'flex', justifyContent: 'center' }}>
-            <div
-              style={{
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                gap: '5px',
-                width: '225px',
-                height: '47px',
-                background: '#B93B3B',
-                borderRadius: '20px',
-                marginBottom: '20px',
-              }}
-            >
-              <img src={rings} alt="rings" style={{ height: '24px' }} />
-              <a href="/tables.html" style={{ color: 'white' }}>
-                Перейти к столам
-              </a>
-            </div>
-          </div>
           <Footer />
         </BrowserRouter>
       </ApiContext.Provider>

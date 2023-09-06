@@ -1,0 +1,16 @@
+.redBtn {
+  @include flexy();
+  margin: 0 auto;
+
+  background-color: #b93b3b;
+  border-radius: 20px;
+
+  .rings {
+    width: 24px;
+    height: 24px;
+  }
+
+  span {
+    color: #ffffff;
+  }
+}

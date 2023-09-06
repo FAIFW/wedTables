@@ -87,3 +87,18 @@ h1 {
   color: $title-color;
   padding: 0.5em 0;
 }
+
+.toTables {
+  max-width: max-content;
+  gap: 10px;
+  padding: 0.9rem 1rem;
+  font-size: calc(18px + 24 * ((100vw - 375px) / 1366));
+  //т.к. general.scss выше то он не перебивает margin 0 auto у компонента redBtn - поэтому !important;
+  margin: 100px auto 0px auto !important;
+}
+
+@media (man-width: 767px) {
+  .toTables {
+    margin: 100px auto 100px auto !important;
+  }
+}
