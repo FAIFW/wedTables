@@ -2,9 +2,8 @@
 
 @font-face {
   font-family: 'Gilroy';
-  src:
-    url("../font/gilroy-regular.woff2") format("woff2"),
-    url("../font/gilroy-regular.woff") format("woff");
+  src: url('../font/gilroy-regular.woff2') format('woff2'),
+    url('../font/gilroy-regular.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -12,10 +11,9 @@
 
 @font-face {
   font-family: 'Gilroy';
-  src:
-    url("../font/gilroy-medium.ttf") format("ttf"),
-    url("../font/gilroy-medium.woff2") format("woff2"),
-    url("../font/gilroy-medium.woff") format("woff");
+  src: url('../font/gilroy-medium.ttf') format('ttf'),
+    url('../font/gilroy-medium.woff2') format('woff2'),
+    url('../font/gilroy-medium.woff') format('woff');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -25,19 +23,17 @@
   font-weight: 600;
   font-family: 'Gilroy';
   /* Соответствует значению "почти" bold )) */
-  src:
-    url("../font/gilroy-semibold.woff2") format("woff2"),
-    url("../font/gilroy-semibold.woff") format("woff");
+  src: url('../font/gilroy-semibold.woff2') format('woff2'),
+    url('../font/gilroy-semibold.woff') format('woff');
   font-style: normal;
   font-display: swap;
 }
 
 @font-face {
   font-family: 'Vibes';
-  src:
-    url("../font/vibes.ttf") format("ttf"),
-    url("../font/vibes.woff2") format("woff2"),
-    url("../font/vibes.woff") format("woff");
+  src: url('../font/vibes.ttf') format('ttf'),
+    url('../font/vibes.woff2') format('woff2'),
+    url('../font/vibes.woff') format('woff');
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -66,6 +62,7 @@ body {
 
 main {
   @include centry(80%);
+  padding-bottom: 20px;
 }
 
 .stop-scroll {

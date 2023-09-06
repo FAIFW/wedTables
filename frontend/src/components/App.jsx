@@ -14,7 +14,6 @@ import Second from './Second.jsx';
 import Programm from './Programm.jsx';
 import DressCode from './DressCode.jsx';
 import Flowers from './Flowers.jsx';
-import ToTables from './ToTables.jsx';
 import Footer from './Footer.jsx';
 import { FileX } from 'react-bootstrap-icons';
 
@@ -59,8 +58,6 @@ const App = () => {
               <Route path="/" element={<FormSubmit isMobile={isMobile} />} />
               <Route path="/list" element={<List isMobile={isMobile} />} />
             </Routes>
-
-            <ToTables text="Перейти к столам" img="./img/icon.png" />
           </main>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <div
