@@ -15,22 +15,28 @@ import Second from './Second.jsx';
 import Programm from './Programm.jsx';
 import DressCode from './DressCode.jsx';
 import Flowers from './Flowers.jsx';
+import ToTables from './ToTables.jsx';
 import Footer from './Footer.jsx';
 import { FileX } from 'react-bootstrap-icons';
-
 
 const App = () => {
   const isMobile = window.screen.width <= 768;
 
   const socket = io();
-  const socketConnect = useCallback((param, arg) => socket.emit(param, arg), [socket]);
+  const socketConnect = useCallback(
+    (param, arg) => socket.emit(param, arg),
+    [socket],
+  );
 
-  const socketApi = useMemo(() => ({
-    addLike: (like) => socketConnect('addLike', like),
-    removeLike: (like) => socketConnect('removeLike', like),
-    addData: (data) => socketConnect('addData', data),
-    removeData: (data) => socketConnect('removeData', data),
-  }), [socketConnect]);
+  const socketApi = useMemo(
+    () => ({
+      addLike: (like) => socketConnect('addLike', like),
+      removeLike: (like) => socketConnect('removeLike', like),
+      addData: (data) => socketConnect('addData', data),
+      removeData: (data) => socketConnect('removeData', data),
+    }),
+    [socketConnect],
+  );
 
   socket.on('addLike', (data) => store.dispatch(actions.addLike(data)));
   socket.on('removeLike', (data) => store.dispatch(actions.removeLike(data)));
@@ -52,8 +58,15 @@ const App = () => {
               <Route path="/" element={<FormSubmit isMobile={isMobile} />} />
               <Route path="/list" element={<List isMobile={isMobile} />} />
             </Routes>
+
+            <ToTables text="Перейти к столам" img="./img/icon.png" />
           </main>
-          <a href="/tables.html" style={{display: 'flex', justifyContent: 'center'}}>Перейти к столам</a>
+          <a
+            href="/tables.html"
+            style={{ display: 'flex', justifyContent: 'center' }}
+          >
+            Перейти к столам
+          </a>
           <Footer />
         </BrowserRouter>
       </ApiContext.Provider>
