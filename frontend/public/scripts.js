@@ -127,53 +127,75 @@ function showSeats() {
   const seatsPerTable = 10;
   const tableRef = databaseRef(db, `tables/${selectedTable}`);
   get(tableRef).then(snapshot => {
-    const tableData = snapshot.val();
-    if (tableData && tableData.seats) {
-      for (let seatIndex = 0; seatIndex < seatsPerTable; seatIndex++) {
-        const seatElement = createSeatElement(seatIndex, tableData.seats[seatIndex]);
-        
-        if (seatIndex < 5) {
-          seatsContainer1.appendChild(seatElement);
-        } else {
-          seatsContainer2.appendChild(seatElement);
-        }
+      const tableData = snapshot.val();
+      if (tableData && tableData.seats) {
+          for (let seatIndex = 0; seatIndex < seatsPerTable; seatIndex++) {
+              const seatElement = createSeatElement(seatIndex, tableData.seats[seatIndex]);
+              
+              if (seatIndex < 5) {
+                  seatsContainer1.appendChild(seatElement);
+              } else {
+                  seatsContainer2.appendChild(seatElement);
+              }
+          }
+          seatsContent.appendChild(seatsContainer1);
+          seatsContent.appendChild(seatsContainer2);
+          tableInfo.textContent = `Стол ${selectedTable + 1}`;
+          tableGrid.appendChild(tableInfo);
+          tableGrid.appendChild(seatsContent);
+          backButton.removeEventListener('click', showSeats);
+          backButton.removeEventListener('click', showUserInfoForm);
+          backButton.addEventListener('click', showTables);
+          tableGrid.appendChild(backButton);
+          updateStageDisplay();
       }
-      seatsContent.appendChild(seatsContainer1);
-      seatsContent.appendChild(seatsContainer2);
-      tableInfo.textContent = `Стол ${selectedTable + 1}`;
-      tableGrid.appendChild(tableInfo);
-      tableGrid.appendChild(seatsContent);
-      backButton.removeEventListener('click', showSeats);
-      backButton.removeEventListener('click', showUserInfoForm);
-      backButton.addEventListener('click', showTables);
-      tableGrid.appendChild(backButton);
-      updateStageDisplay();
-    }
   });
 }
-
 
 function showModal(guestName, tableNumber, seatNumber, photoURL) {
   const modal = document.createElement('div');
   modal.className = 'modal';
   modal.innerHTML = `
-    <div class="modal-content">
-      <span class="close-modal" id="close-modal">&times;</span>
-      <div class="modal-body">
-        ${photoURL ? `<img src="${photoURL}" alt="${guestName}" class="seat-photo">` : ''}
-        <p>Имя: ${guestName}</p>
-        <p>Стол: ${tableNumber}, Место: ${seatNumber}</p>
+      <div class="modal-content">
+          <span class="close-modal" id="close-modal">&times;</span>
+          <div class="modal-body">
+              ${photoURL ? `<img src="${photoURL}" alt="${guestName}" class="seat-photo">` : ''}
+              <p>Имя: ${guestName}</p>
+              <p>Стол: ${tableNumber}, Место: ${seatNumber}</p>
+              <button id="delete-seat">Удалить место</button>
+          </div>
       </div>
-    </div>
   `;
 
   modal.style.display = 'block';
 
   const closeModalButton = modal.querySelector('#close-modal');
   closeModalButton.addEventListener('click', () => {
-    modal.style.display = 'none';
+      modal.style.display = 'none';
   });
-
+  const deleteButton = modal.querySelector('#delete-seat');
+  deleteButton.addEventListener('click', () => {
+      // Reset seat data to empty values
+      const emptySeatData = {
+          isOccupied: false,
+          guestName: "",
+          gender: "",
+          age: 0,
+          photo: "",
+          side: "",
+          guests: []
+      };
+      const seatIndex = selectedSeat; // Capture the selected seatIndex
+      const seatRef = databaseRef(db, `tables/${selectedTable}/seats/${seatIndex}`);
+      set(seatRef, emptySeatData)
+          .then(() => {
+              modal.style.display = 'none';
+              showSeats(); // Refresh seats display
+          })
+          .catch(error => {
+              console.error('Error deleting seat:', error);
+          });
+  });
   document.body.appendChild(modal);
 }
 
@@ -182,24 +204,25 @@ function createSeatElement(seatIndex, seatData) {
   seatElement.className = 'seat';
 
   if (seatData.isOccupied) {
-    if (seatData.photoURL) {
-      const seatImage = document.createElement('img');
-      seatImage.src = seatData.photoURL;
-      seatImage.alt = seatData.guestName;
-      seatElement.innerHTML = ''; // Очистка сиденья
-      seatElement.appendChild(seatImage);
-    } else {
-      seatElement.classList.add('occupied');
-      seatElement.textContent = seatData.guestName;
-    }
-    seatElement.addEventListener('click', () => {
-      showModal(seatData.guestName, selectedTable + 1, seatIndex + 1, seatData.photoURL);
-    });
+      if (seatData.photoURL) {
+          const seatImage = document.createElement('img');
+          seatImage.src = seatData.photoURL;
+          seatImage.alt = seatData.guestName;
+          seatElement.innerHTML = ''; // Очистка сиденья
+          seatElement.appendChild(seatImage);
+      } else {
+          seatElement.classList.add('occupied');
+          seatElement.textContent = seatData.guestName;
+      }
+      seatElement.addEventListener('click', () => {
+          showModal(seatData.guestName, selectedTable + 1, seatIndex + 1, seatData.photoURL);
+          selectedSeat = seatIndex; // Set the selected seatIndex
+      });
   } else {
-    seatElement.addEventListener('click', () => {
-      selectedSeat = seatIndex;
-      showUserInfoForm();
-    });
+      seatElement.addEventListener('click', () => {
+          selectedSeat = seatIndex;
+          showUserInfoForm();
+      });
   }
 
   return seatElement;
@@ -268,14 +291,11 @@ function showUserInfoForm() {
   ageLabel.textContent = 'Возраст:';
   const ageCounter = document.createElement('div');
   ageCounter.className = 'age-counter';
-  // const ageDisplay = document.createElement('div');
-  // ageDisplay.className = 'age-display';
-  // ageDisplay.textContent = '0';
   const ageDisplay = document.createElement('input');
   ageDisplay.type = 'text';
   ageDisplay.pattern = '[0-9]{1,2}';
   ageDisplay.maxLength = 2;
-  ageDisplay.className = 'age-input'; // Добавьте класс для стилизации, если необходимо
+  ageDisplay.className = 'age-input'; 
   ageDisplay.value = '0';
   const incrementButton = document.createElement('button');
   incrementButton.textContent = '+';
@@ -293,6 +313,13 @@ function showUserInfoForm() {
     if (!isNaN(currentAge) && currentAge > 0) {
       ageDisplay.value = (currentAge - 1).toString();
     }
+  });
+  
+  ageDisplay.addEventListener('input', () => {
+  const value = ageDisplay.value;
+  if (value.length === 2 && value.startsWith('0')) {
+    ageDisplay.value = value.charAt(1);
+  }
   });
 
   ageCounter.appendChild(decrementButton);
@@ -345,9 +372,9 @@ function showUserInfoForm() {
   const manDiv = document.createElement('div');
   manDiv.className = 'sideOption';
   const manImage = document.createElement('img');
-  manImage.src = 'man.png';
+  manImage.src = './img/man.png';
   const manCheck = document.createElement('img');
-  manCheck.src = 'check.png';
+  manCheck.src = './img/check.png';
   manCheck.className = 'check';
   manCheck.style.display = 'none';
   
@@ -362,9 +389,9 @@ function showUserInfoForm() {
   const womanDiv = document.createElement('div');
   womanDiv.className = 'sideOption';
   const womanImage = document.createElement('img');
-  womanImage.src = 'woman.png';
+  womanImage.src = './img/woman.png';
   const womanCheck = document.createElement('img');
-  womanCheck.src = 'check.png';
+  womanCheck.src = './img/check.png';
   womanCheck.className = 'check';
   womanCheck.style.display = 'none';
   
@@ -420,7 +447,7 @@ function showUserInfoForm() {
       guestOptions.insertBefore(guestInput, addGuestButton);
   
       guestInput.addEventListener('input', () => {
-        // При вводе имени гостя, добавляем его в массив гостей
+        let guests = [];
         const guestName = guestInput.value;
         if (guestName) {
           guests.push(guestName);
@@ -492,27 +519,39 @@ function showUserInfoForm() {
   updateStageDisplay();
 }
 
+let confirmationDisplayed = false; 
+
 function showConfirmationWindow(name, gender, age, side, guests) {
-  const confirmationWindow = document.createElement('div');
-  confirmationWindow.className = 'custom-alert'; // Стили кастомного окна заданы в CSS
-  const img_done = document.createElement('img');
-  img_done.src = './img_done.png';
-  img_done.className = "img_done";
-  confirmationWindow.appendChild(img_done);
-  const confirmationText = document.createElement('p');
-  confirmationText.textContent = `Вы выбрали стол ${selectedTable + 1}, сиденье ${selectedSeat + 1}. Имя: ${name}, Пол: ${gender}, Возраст: ${age}, Сторона: ${side}, Гости: ${guests.join(', ')}`;
-  confirmationWindow.appendChild(confirmationText);
-  
-  const returnButton = document.createElement('button');
-  returnButton.textContent = 'На главную';
-  returnButton.addEventListener('click', () => {
-    confirmationWindow.style.display = 'none';
-    showTables();
-  });
-  confirmationWindow.appendChild(returnButton);
-  
-  document.body.appendChild(confirmationWindow);
-  confirmationWindow.style.display = 'flex';
+  if (!confirmationDisplayed) {
+    confirmationDisplayed = true;
+    const confirmationWindow = document.createElement('div');
+    confirmationWindow.className = 'custom-alert'; 
+    const img_done = document.createElement('img');
+    img_done.src = './img/img_done.png';
+    img_done.className = "img_done";
+    confirmationWindow.appendChild(img_done);
+    const confirmationText = document.createElement('p');
+    confirmationText.textContent = `Вы выбрали стол ${selectedTable + 1}, сиденье ${selectedSeat + 1}. Имя: ${name}, Пол: ${gender}, Возраст: ${age}, Сторона: ${side}, Гости: ${guests.join(', ')}`;
+    confirmationWindow.appendChild(confirmationText);
+
+    const returnButton = document.createElement('button');
+    returnButton.textContent = 'На главную';
+    returnButton.addEventListener('click', () => {
+      confirmationWindow.style.display = 'none';
+      showTables();
+    });
+    confirmationWindow.appendChild(returnButton);
+
+    const rootDiv = document.getElementById('root');
+    const stageContainer = document.querySelector('.stage-container');
+    rootDiv.insertBefore(confirmationWindow, stageContainer.nextSibling);
+    confirmationWindow.style.display = 'flex';
+
+    setTimeout(() => {
+      confirmationWindow.style.display = 'none';
+      showTables();
+    }, 8000); 
+  }
 }
 
 function submitUserInfo(name, gender, age, photoURL, side, guests) {

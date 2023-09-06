@@ -268,14 +268,11 @@ function showUserInfoForm() {
   ageLabel.textContent = 'Возраст:';
   const ageCounter = document.createElement('div');
   ageCounter.className = 'age-counter';
-  // const ageDisplay = document.createElement('div');
-  // ageDisplay.className = 'age-display';
-  // ageDisplay.textContent = '0';
   const ageDisplay = document.createElement('input');
   ageDisplay.type = 'text';
   ageDisplay.pattern = '[0-9]{1,2}';
   ageDisplay.maxLength = 2;
-  ageDisplay.className = 'age-input'; // Добавьте класс для стилизации, если необходимо
+  ageDisplay.className = 'age-input'; 
   ageDisplay.value = '0';
   const incrementButton = document.createElement('button');
   incrementButton.textContent = '+';
@@ -293,6 +290,13 @@ function showUserInfoForm() {
     if (!isNaN(currentAge) && currentAge > 0) {
       ageDisplay.value = (currentAge - 1).toString();
     }
+  });
+  
+  ageDisplay.addEventListener('input', () => {
+  const value = ageDisplay.value;
+  if (value.length === 2 && value.startsWith('0')) {
+    ageDisplay.value = value.charAt(1);
+  }
   });
 
   ageCounter.appendChild(decrementButton);
@@ -492,13 +496,13 @@ function showUserInfoForm() {
   updateStageDisplay();
 }
 
-let confirmationDisplayed = false; // Add this variable
+let confirmationDisplayed = false; 
 
 function showConfirmationWindow(name, gender, age, side, guests) {
-  if (!confirmationDisplayed) { // Check if the confirmation window is not already displayed
-    confirmationDisplayed = true; // Set the flag to true
+  if (!confirmationDisplayed) {
+    confirmationDisplayed = true;
     const confirmationWindow = document.createElement('div');
-    confirmationWindow.className = 'custom-alert'; // Стили кастомного окна заданы в CSS
+    confirmationWindow.className = 'custom-alert'; 
     const img_done = document.createElement('img');
     img_done.src = './img/img_done.png';
     img_done.className = "img_done";
@@ -514,10 +518,16 @@ function showConfirmationWindow(name, gender, age, side, guests) {
       showTables();
     });
     confirmationWindow.appendChild(returnButton);
+
     const rootDiv = document.getElementById('root');
     const stageContainer = document.querySelector('.stage-container');
     rootDiv.insertBefore(confirmationWindow, stageContainer.nextSibling);
     confirmationWindow.style.display = 'flex';
+
+    setTimeout(() => {
+      confirmationWindow.style.display = 'none';
+      showTables();
+    }, 8000); 
   }
 }
 
