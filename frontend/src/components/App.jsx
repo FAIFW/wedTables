@@ -8,7 +8,6 @@ import FormSubmit from './FormSubmit.jsx';
 import List from './List.jsx';
 import { actions } from '../slices/dataSlice.js';
 import ApiContext from './Context.jsx';
-// тут ваши импорты
 
 import Header from './Header.jsx';
 import Second from './Second.jsx';
@@ -18,6 +17,8 @@ import Flowers from './Flowers.jsx';
 import ToTables from './ToTables.jsx';
 import Footer from './Footer.jsx';
 import { FileX } from 'react-bootstrap-icons';
+
+import rings from '../img/rings.png';
 
 const App = () => {
   const isMobile = window.screen.width <= 768;
@@ -61,12 +62,26 @@ const App = () => {
 
             <ToTables text="Перейти к столам" img="./img/icon.png" />
           </main>
-          <a
-            href="/tables.html"
-            style={{ display: 'flex', justifyContent: 'center' }}
-          >
-            Перейти к столам
-          </a>
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                gap: '5px',
+                width: '225px',
+                height: '47px',
+                background: '#B93B3B',
+                borderRadius: '20px',
+                marginBottom: '20px',
+              }}
+            >
+              <img src={rings} alt="rings" style={{ height: '24px' }} />
+              <a href="/tables.html" style={{ color: 'white' }}>
+                Перейти к столам
+              </a>
+            </div>
+          </div>
           <Footer />
         </BrowserRouter>
       </ApiContext.Provider>
