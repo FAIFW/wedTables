@@ -62,7 +62,7 @@ const App = () => {
 
             <RedBtn
               className="redBtn toTables"
-              href="/tables.html"
+              href="/portfolio/wedding/tables.html"
               img={rings}
               text="Перейти к&nbsp;рассадке гостей и&nbsp;выбрать место"
             />

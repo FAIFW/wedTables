@@ -9,7 +9,7 @@
     setTimeout(() => {
       document.querySelector('.preloader').classList.add('preloader_hidden');
       root.style.display = 'initial';
-      btnBack.style.display = 'initial';
+      btnBack.style.display = 'flex';
     }, 1000);
   });
 })();
