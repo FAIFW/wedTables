@@ -47,7 +47,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <ApiContext.Provider value={socketApi}>
-        <BrowserRouter basename="/app">
+        <BrowserRouter>
           <ToastContainer />
           <Header />
           <main>
@@ -62,7 +62,7 @@ const App = () => {
 
             <RedBtn
               className="redBtn toTables"
-              href="/portfolio/wedding/tables.html"
+              href="/tables.html"
               img={rings}
               text="Перейти к&nbsp;рассадке гостей и&nbsp;выбрать место"
             />
