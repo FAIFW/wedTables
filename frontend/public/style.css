@@ -1,11 +1,10 @@
+/*        preloader function styles      */
 .preloader {
   position: absolute;
-
   top: 50%;
   bottom: 50%;
   right: 0;
   left: 0;
-
   margin: auto;
 }
 
@@ -13,6 +12,10 @@
   visibility: hidden;
   opacity: 0;
   transition: opacity 0.5s, visibility 0s 0.2s;
+}
+
+.hideContent {
+  display: none !important;
 }
 
 .sk-circle-fade {

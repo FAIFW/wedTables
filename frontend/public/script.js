@@ -36,16 +36,6 @@ const tableGrid = document.getElementById('table-grid');
 const stageHeader = document.getElementById('stage-header');
 const tableInfo = document.createElement('p');
 
-const loadingText = document.getElementById('loading-text')
-function showLoading() {
-  loadingText.style.display = 'block'; 
-}
-
-function hideLoading() {
-  loadingText.style.display = 'none';
-}
-
-
 let currentStage = 1;
 let selectedTable = null;
 let selectedSeat = null;
@@ -82,8 +72,9 @@ function updateSeatStatus(tableIndex, seatIndex, isOccupied, guestName) {
 }
 
 function showTables() {
-  currentStage = 1; 
-  showLoading()
+  currentStage = 1;
+  showLoading();
+
   tableGrid.innerHTML = '';
   stageHeader.innerHTML = '<h1>Выберите стол</h1>';
   const wedding_img = document.getElementById('wedding_img');
@@ -130,12 +121,13 @@ function showTables() {
 
   tableGrid.appendChild(tablesContainer);
   updateStageDisplay();
-  hideLoading()
+
+  hideLoading();
 }
 
 function showSeats() {
   currentStage = 2;
-  showLoading()
+  showLoading();
   tableGrid.innerHTML = '';
   const wedding_img = document.getElementById('wedding_img');
   wedding_img.style.display = 'none';
@@ -174,7 +166,7 @@ function showSeats() {
       backButton.addEventListener('click', showTables);
       tableGrid.appendChild(backButton);
       updateStageDisplay();
-      hideLoading()
+      hideLoading();
     }
   });
 }
@@ -244,6 +236,7 @@ showTables();
 
 function showUserInfoForm() {
   currentStage = 3;
+  showLoading();
   tableGrid.innerHTML = '';
   stageHeader.innerHTML = '<h1>Введите данные</h1>';
   const wedding_img = document.getElementById('wedding_img');
@@ -540,6 +533,7 @@ function showUserInfoForm() {
   backButton.addEventListener('click', showSeats);
   tableGrid.appendChild(backButton);
   updateStageDisplay();
+  hideLoading();
 }
 
 let confirmationDisplayed = false; // Add this variable
@@ -583,7 +577,7 @@ function showConfirmationWindow(name, gender, age, side, guests) {
 }
 
 function submitUserInfo(name, gender, age, photoURL, side, guests) {
-  showLoading()
+  showLoading();
   if (typeof side === 'undefined') {
     side = 'Не указана';
   }
@@ -593,7 +587,7 @@ function submitUserInfo(name, gender, age, photoURL, side, guests) {
   const tableRef = databaseRef(db, `tables/${selectedTable}`);
   get(tableRef).then((snapshot) => {
     const tableData = snapshot.val();
-    hideLoading()
+    hideLoading();
     if (tableData && tableData.seats && tableData.seats[selectedSeat]) {
       tableData.seats[selectedSeat].isOccupied = true;
       tableData.seats[selectedSeat].guestName = name;
